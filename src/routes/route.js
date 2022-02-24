@@ -2,83 +2,85 @@ const express = require('express');
 const router = express.Router();
 
 //router.get('/test-me', function (req, res) {
-  //  res.send('My first ever api!')
+ //   res.send('My first ever api!')
 //});
 
 //router.get('', function(req,res){
-  //  res.send('Server Working Properly')
+  // res.send('Server Working Properly')
 //});
     
-router.get('/movies', function(req,res) {
-    const movies = ['the game', 'shawshank', 'special26', 'Wanted'] ;
-        res.send(movies) ;    
-});
+// problem 1.
 
-router.get('/movies/:number', function(req,res) {
-    const movies  = ['the game', 'shawshank', 'special26', 'Wanted'] ;
-    const movie = req.params.number
-    if(movie >= movies.length){
-        res.send('Invalid Index')
-    } else {
-    res.send(movies[movie])
+let persons= [
+
+    {
+    
+    name: "PK",
+    
+    age: 10,
+    
+    votingStatus: false
+    
+    },
+    
+    {
+    
+    name: "SK",
+    
+    age: 20,
+    
+    votingStatus: false
+    
+    },
+    
+    {
+    
+    name: "AA",
+    
+    age: 70,
+    
+    votingStatus: false
+    
+    },
+    
+    {
+    
+    name: "SC",
+    
+    age: 5,
+    
+    votingStatus: false
+    
+    },
+    
+    {
+    
+    name: "HO",
+    
+    age: 40,
+    
+    votingStatus: false
+    
     }
-});
-
-router.get('/films', function(req,res){
-    const films = [ {
-        "id" : 1,
-        "name" : "Shaadi Mein Zaroor Aana"
-       }, {
-        "id": 2,
-        "name" : "Soun Ki Titu Ki Sweety"
-       }, {
-        "id": 3,
-        "name" : "Hum Aapke Hain Koun"
-       }, {
-        "id": 4,
-        "name": "M.S. Dhoni: The Untold Story"
-       }]
-       
-       res.send(films)
-
-});
-
-
-router.get('/films/:filmId', function(req,res){
-    const films = [ {
-        "id" : 1,
-        "name" : "Shaadi Mein Zaroor Aana"
-       }, {
-        "id": 2,
-        "name" : "Soun Ki Titu Ki Sweety"
-       }, {
-        "id": 3,
-        "name" : "Hum Aapke Hain Koun"
-       }, {
-        "id": 4,
-        "name": "M.S. Dhoni: The Untold Story"
-       }]
-
-       const filmId = req.params.filmId
-    //    let found = false;
-    //    for(let i=0; i<films.length;i++){
-    //        if(films[i].id == filmId){
-    //            found = true
-    //            res.send(films[i])
-    //        }
-    //    }
-
-        console.log(filmId)
-
-       for(let i=0; i<films.length; i++) {
-          if(films[i].id == filmId){
-           res.send(films[i].name)
-           return 
-          } 
+    
+    ]
+     let Eligibleperson = []
+    router.post("/query",function(req,res) {
+        let input = req.query.votingage
+    for(let i =0; i<persons.length; i++){
+        if(persons[i].age>input){
+            persons[i].votingStatus = true
+            Eligibleperson.push(persons[i])
         }
         
-        res.send('No movie exists with this id')
+
         
-});
+    }
+    console.log(Eligibleperson)
+    res.send({result : Eligibleperson, status : true})
+
+
+
+    })
 
 module.exports = router;
