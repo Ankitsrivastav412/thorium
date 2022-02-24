@@ -1,84 +1,60 @@
 const express = require('express');
+
 const router = express.Router();
 
-//router.get('/test-me', function (req, res) {
-  //  res.send('My first ever api!')
-//});
+let playersArr=[]
 
-//router.get('', function(req,res){
-  //  res.send('Server Working Properly')
-//});
-    
-router.get('/movies', function(req,res) {
-    const movies = ['the game', 'shawshank', 'special26', 'Wanted'] ;
-        res.send(movies) ;    
+router.get('/test-me', function (req, res) {
+    res.send('My first ever api!')
 });
+router.post('/functionUp',function(req,res){
+    res.send("this is new route")     
+})
 
-router.get('/movies/:number', function(req,res) {
-    const movies  = ['the game', 'shawshank', 'special26', 'Wanted'] ;
-    const movie = req.params.number
-    if(movie >= movies.length){
-        res.send('Invalid Index')
-    } else {
-    res.send(movies[movie])
-    }
-});
+// problem no. 1
 
-router.get('/films', function(req,res){
-    const films = [ {
-        "id" : 1,
-        "name" : "Shaadi Mein Zaroor Aana"
-       }, {
-        "id": 2,
-        "name" : "Soun Ki Titu Ki Sweety"
-       }, {
-        "id": 3,
-        "name" : "Hum Aapke Hain Koun"
-       }, {
-        "id": 4,
-        "name": "M.S. Dhoni: The Untold Story"
-       }]
-       
-       res.send(films)
-
-});
-
-
-router.get('/films/:filmId', function(req,res){
-    const films = [ {
-        "id" : 1,
-        "name" : "Shaadi Mein Zaroor Aana"
-       }, {
-        "id": 2,
-        "name" : "Soun Ki Titu Ki Sweety"
-       }, {
-        "id": 3,
-        "name" : "Hum Aapke Hain Koun"
-       }, {
-        "id": 4,
-        "name": "M.S. Dhoni: The Untold Story"
-       }]
-
-       const filmId = req.params.filmId
-    //    let found = false;
-    //    for(let i=0; i<films.length;i++){
-    //        if(films[i].id == filmId){
-    //            found = true
-    //            res.send(films[i])
-    //        }
-    //    }
-
-        console.log(filmId)
-
-       for(let i=0; i<films.length; i++) {
-          if(films[i].id == filmId){
-           res.send(films[i].name)
-           return 
-          } 
+router.post("/players",function(req, res){
+    let player=req.body
+    // console.log(player)
+    let name=player.name
+    for(let i=0; i<playersArr.length;i++){
+        if(playersArr[i].name==name){
+            return res.send("Player with this name already existed...... so cannot allow duplicate.")
         }
-        
-        res.send('No movie exists with this id')
-        
-});
+    }
+    playersArr.push(player)
+    res.send(playersArr)
+})
+
+// problem no. 2
+
+router.post('/players/:playerName/bookings/:bookingId', function(req, res) {
+    let name = req.params.playerName
+    let isPlayerPresent = false
+
+    for (let i = 0; i < playersArr.length; i++) {
+        if (playersArr[i].name == name) {
+            isPlayerPresent = true
+        }
+    }
+    if (!isPlayerPresent) {
+        return res.send('Player not present')
+    }
+
+    let booking = req.body
+    let playerbookingId = req.params.bookingId
+    for (let i = 0; i < playersArr.length; i++) {
+        if (playersArr[i].name == name) {
+            for (let j = 0; j < players[i].bookings.length; j++) {
+                if (playersArr[i].bookings[j].bookingNumber == playerbookingId) {
+                    return res.send('Booking with this id is already present')
+                }
+            }
+            playersArr[i].bookings.push(booking)
+        }
+    }
+    res.send(players)
+}),
+
 
 module.exports = router;
