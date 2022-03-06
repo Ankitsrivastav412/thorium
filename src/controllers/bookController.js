@@ -34,16 +34,16 @@ const getBooks= async function (req, res) {
 //5(a)
 const updatCover= async function(req,res){
     let hardcovered= await publisherModel.find({name:{$in:["penguin,Harper Collins"]}}).select({_id:1})
-    res.send({data:hardcovered})
-//     for(let i=0;i<hardcovered.length;i++){
-//     let ishardco= await bookModel.updateMany(
-//     {publisher:{$eq:hardcovered[i]._id}},
-//     {$set:{isHardCover:true}},
-//     {new:true}
+    // res.send({data:hardcovered})
+    for(let i=0;i<hardcovered.length;i++){
+    let ishardco= await bookModel.updateMany(
+    {publisher:{$eq:hardcovered[i]._id}},
+    {$set:{isHardCover:true}},
+    {new:true}
 
-//     )
-//     res.send(ishardco)
-// }
+    )
+    res.send(ishardco)
+}
 }
 
 //5(b)
