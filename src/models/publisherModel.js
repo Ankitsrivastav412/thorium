@@ -1,9 +1,9 @@
-const publisherModel= require("../models/publisherModel")
+const mongoose = require('mongoose');
 
-const createPublisher= async function (req, res) {
-    let publisher = req.body
-    let publisherCreated = await publisherModel.create(publisher)
-    res.send({data: publisherCreated})
-}
+const publisherSchema = new mongoose.Schema( {
+    name: String,
+    headQuarter: String
+    
+}, { timestamps: true });
 
-module.exports.createPublisher= createPublisher
+module.exports = mongoose.model('NewPublisher', publisherSchema)
