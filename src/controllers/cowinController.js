@@ -15,7 +15,7 @@ let getStates = async function (req, res) {
     }
     catch (err) {
         console.log(err)
-        res.status(500).send({ msg: err.message })
+         res.status(500).send({ msg: err.message })
     }
 }
 
@@ -77,6 +77,26 @@ let getOtp = async function (req, res) {
         res.status(500).send({ msg: err.message })
     }
 }
+/*
+let getvaccinationstatusbydistrictId = async function (req, res) {
+    try {
+        let DistrictId = req.query.districtId
+        let date = req.query.date
+        console.log(`query params are: ${districtId} ${date}`)
+        let options = {
+            method: "get",
+            url: `https://cdn-api.co-vin.in/api/v2/admin/location/districts/?districtId=${DistrictId}&date=${date}`
+        }
+        let result = await axios(options);
+        console.log(result)
+        let data = result.data
+        res.status(200).send({ msg: data, status: true })
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).send({ msg: err.message })
+    }
+}*/
 
 
 module.exports.getStates = getStates
