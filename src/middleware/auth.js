@@ -7,7 +7,7 @@ const authenticate = async function(req, res, next) {
        
        if(!token) return res.status(400).send({status: false, msg: "token must be provided"})
        
-       let verifiedToken = jwt.verify(token , "SurajDubey")   
+       let verifiedToken = jwt.verify(token , "AnkitSrivastav")   
        if(!verifiedToken) return res.status(401).send({status: false, msg: "Invalid token"})
        
        req.isVerifiedTokenId = verifiedToken.userId
