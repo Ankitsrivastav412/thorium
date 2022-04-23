@@ -4,11 +4,11 @@ const userModel = require("../models/userModel");
 const createUser = async function (req, res) {
   try {
     let data = req.body;
-    if (Object.keys(data).length > 0) {
-      let user = await userModel.create(req.body);
-      res.status(201).send({ status: true, msg: user });
+    if (Object.keys(data).length == 0) {
+    return res.status(400).send({status:false,msg:"Please provide Some data"}} ;     
     } else {
-      res.status(400).send({ error: "Please provide input data" });
+      let user = await userModel.create(data);
+      return res.status(201).send({status:true,msg:"User Created Succesfully});
     }
   } catch (error) {
         res.status(500).send({ error: error.message });
