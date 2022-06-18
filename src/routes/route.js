@@ -22,7 +22,7 @@ router.get('/Hello', function (req, res) {
     let month= ["january", "February", "march", "april", "May", "June", "July", "august", "sept", "oct",  "nov", "dec"]
 
        console.log(lodash.chunk(month,4)) 
-    res.send('welcome to functionup. im sunny chakrawarty and a part of functionup thorium')
+    res.send('welcome to functionup. im Ankit Srivastav and a part of functionup thorium')
 });
 
 router.get('/Hello3', function (req, res) {
